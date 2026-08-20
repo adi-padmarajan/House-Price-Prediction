@@ -82,9 +82,3 @@ House-Price-Prediction/
 ├── real_estate_pp.ipynb
 └── README.md
 ```
-
-## Objective
-
-This project demonstrates a Machine Learning workflow:
-
-**Data Loading → Data Visualization → Data Preprocessing → Feature Engineering → Model Training → Prediction → Evaluation**
