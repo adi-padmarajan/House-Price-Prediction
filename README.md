@@ -26,16 +26,29 @@ The project includes visualizations such as:
 * **Overall Condition vs Sale Price** — Box Plot
 * **Building Type vs Sale Price** — Box Plot
 
-These visualizations help identify relationships, trends, and outliers within the dataset.
 
 ## Data Preprocessing
 
 Before training the model:
 
 * Rows with missing `SalePrice` values were removed.
-* Categorical features such as `MSZoning`, `LotConfig`, `BldgType`, and `Exterior1st` were encoded into numerical values.
+* The `Id` column was excluded from the input features.
+* Categorical features such as `MSZoning`, `LotConfig`, `BldgType`, and `Exterior1st` were converted into numerical features using **One-Hot Encoding**.
 * Remaining missing feature values were replaced with `-1`.
 * The dataset was divided into **80% training data** and **20% testing data**.
+
+### One-Hot Encoding
+
+Categorical variables were encoded using Pandas:
+
+```python
+X = pd.get_dummies(
+    X,
+    columns=["MSZoning", "LotConfig", "BldgType", "Exterior1st"],
+    drop_first=True,
+    dtype=int
+)
+```
 
 ## Model
 
@@ -48,19 +61,21 @@ model = LinearRegression()
 model.fit(X_train, y_train)
 ```
 
-The model is trained using the property features and then used to predict house sale prices from the test dataset.
+The trained model is then used to predict house sale prices from the test dataset.
 
 ## Model Performance
 
 The model was evaluated using the **R² Score**.
 
 ```text
-R² Score: 59.96%
+R² Score: 61.95%
 ```
 
-This means that the model explains approximately **60% of the variation in house sale prices** using the selected features.
+The model explains approximately **61.95% of the variation in house sale prices** using the selected property features.
 
-## Technologies Used
+Using **One-Hot Encoding** for categorical variables improved the model's R² score compared with manually assigning numerical values to each category.
+
+## Tools Used
 
 * Python
 * Pandas
@@ -69,7 +84,6 @@ This means that the model explains approximately **60% of the variation in house
 * Matplotlib
 * Scikit-learn
 * Jupyter Notebook
-
 
 ## Project Structure
 
@@ -82,3 +96,7 @@ House-Price-Prediction/
 ├── real_estate_pp.ipynb
 └── README.md
 ```
+
+## Machine Learning Workflow
+
+**Data Loading → Exploratory Data Analysis → Data Preprocessing → One-Hot Encoding → Train/Test Split → Linear Regression → Prediction → Model Evaluation**
